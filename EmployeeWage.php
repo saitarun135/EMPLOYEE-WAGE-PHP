@@ -1,42 +1,41 @@
 <?php
-class EmpWageBuilder{
+class EmpWageBuilderMultiCompany{
     const IS_PART_TIME=1;
     const IS_FULL_TIME=2;
-    const EMP_RATE_PER_HOUR=18;
-    const NO_OF_WORKING_DAYS=24;
-    const MAX_HRS_IN_MONTH=120;
-
-function computeEmployeeWage(){
+   
+function computeEmployeeWage($company,$empRatePerHour,$numOfWorkingDays,$maxHoursPerMonth){
     $empHrs=0;
     $totalEmpHrs=0;
     $totalWorkingDays=0;
-    while($totalEmpHrs<=(self::MAX_HRS_IN_MONTH) && $totalWorkingDays<(self::NO_OF_WORKING_DAYS)){
+    while($totalEmpHrs<=$maxHoursPerMonth && $totalWorkingDays<$numOfWorkingDays){
             $totalWorkingDays++;
             $empChk=rand(1,2);
             switch($empChk){
                 case 1:
                     $empHrs=4;
+                    //echo"Employee is PART-TIMER"."<br>";
                     break;
-                case (self::IS_FULL_TIME):
+                case 2:
                     $empHrs=8;
+                    //echo "Employee is FULL-TIMER"."<br>";
                     break;
                 default:
                     $empHrs=0;
                     break;
             }
             $totalEmpHrs += $empHrs;
-            echo "Day".$totalWorkingDays."EmployeeHrs:".$empHrs."<br>";
+            echo "Day".$totalWorkingDays."EmployeeHours:".$totalEmpHrs.'<br>';
            
-            
     }
-    $totalEmpWage=$totalEmpHrs * (self::EMP_RATE_PER_HOUR);
-    echo "TotalEmployeeHours:".$totalEmpHrs.'<br>';
-    echo "TotalEmployeeWage: ".$totalEmpWage."<br>";
-    return $totalEmpWage;
-  
+    $totalEmpWage=$totalEmpHrs * $empRatePerHour;
+    echo "TotalEmployeeWage for a company ".$company." is =".$totalEmpWage."<br>";
+      
     }
 }
 
-$calculateWage=new EmpWageBuilder;
-$calculateWage->computeEmployeeWage();
+$calculateWage=new EmpWageBuilderMultiCompany;
+echo "EmployeeWage for DMART"."<br>";
+echo $calculateWage->computeEmployeeWage("DMART",20,24,120);
+echo "EmployeeWage for KMART"."<br>";
+$calculateWage->computeEmployeeWage("KMART",10,20,100);
 ?>
