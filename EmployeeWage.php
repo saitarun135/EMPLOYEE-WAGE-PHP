@@ -1,8 +1,10 @@
 <?php
-function calWage(){
-    $IS_PART_TIME=1;
-    $IS_FULL_TIME=2;
-    $EMP_RATE_PER_HR=20;
+$IS_PART_TIME=1;
+$IS_FULL_TIME=2;
+$EMP_RATE_PER_HR=20;
+$totalEmpWage=0;
+$NUM_OF_WORKING_DAYS=2;
+for($day=0;$day<$NUM_OF_WORKING_DAYS;$day++){
     $empChk=rand(1,3);
     switch($empChk){
         case 1:
@@ -18,7 +20,11 @@ function calWage(){
             break;
         }
         $empWage=$EMP_RATE_PER_HR*$empChk;
-        echo "Employee wage:".$empWage;
+        $totalEmpWage += $empWage;
+       // echo "Employee wage:".$empWage."\n";
+       
 }
-  calWage();
+echo "Total wage :".$totalEmpWage."<br>";
+echo "Employee wage:".$empWage;
+
 ?>
